@@ -1,0 +1,97 @@
+@import "bootstrap";
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+  padding-top: 60px;
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.center {
+  text-align: center;
+}
+
+.center h1 {
+  margin-bottom: 10px;
+}
+
+#tag {
+	font-size: 22px;
+	color: #888;
+}
+
+#good {
+	font-size: 11px;
+	color: #999;
+}
+
+#name {
+	font-size: 18px;
+}
+
+#score {
+	font-size: 20px;
+}
+
+#mark {
+	font-size: 11px;
+	color: #999;
+}
+
+#box {
+    border-radius: 7px;
+    border: solid 1px #ccc;
+    margin-bottom: 0px;
+}
+
+#edit-btn {
+	margin: 10px;
+}
+
+.media-heading {
+	margin-top: 10px;
+}
+
+.media-object {
+	margin-top: 10px;
+}
+
+.media {
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
+.time {
+	bottom: 0;
+	color: #777;
+}
+
+#img {
+	margin-left: 10px;
+	margin-right: 5px;
+}
+
+#icon {
+	color: #1E90FF;
+}
+
+.pull-up {
+	margin-top: 0;
+}
+
+.btn-small {
+	font-size: 10px;
+}
+
+.media-object {
+	border-radius: 3px;
+}

@@ -1,0 +1,18 @@
+<ul class="media-list" id='box'>
+  <% @questions.each do |question| %>
+    <li class="media">
+      <div class="pull-left">
+        <a href=<%= user_path(question.user_id) %>>
+          <%= image_tag(get_user(question.user_id).image_url, size: '68x68', class: 'media-object') %>
+        </a>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading"><%=link_to question.title, question %></h4>
+        <%= simple_format(question.description) %>
+        <div class="label label-info"><%= question.tag %></div>
+        <div class='time pull-right'><%= question.updated_at.to_formatted_s(:without_second) %></div>
+      </div>
+    </li>
+  <hr>
+  <% end %>
+</ul>

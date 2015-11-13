@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="media col-md-12" id="box">
+        <a href=<%= user_path(@user) %> class="pull-left">
+            <%= image_tag(@user.image_url, size: "100x100", class: "media-object") %>
+        </a>
+        <div class="media-body">
+            <h3 class="media-heading">
+                <%= @question.title %> 
+                <%= div_for(@question, class: "label label-primary") do %>
+                    <%= @question.theme %>
+                <% end %>
+                <div class="pull-right" id="tag"> #<%= @question.tag %> </div>
+            </h3>
+            <%= markdown(@question.description).html_safe %><br>
+            <div class="col-md-6 well well-sm">
+                <%= markdown(@question.code).html_safe %>
+            </div>
+            <div class="col-md-6 well well-sm" >
+                <% unless @question.test == nil %>
+                    <%= markdown(@question.test).html_safe %>
+                <% end %>
+            </div>
+        </div>
+        <div class='time pull-right'><%= @question.updated_at.to_formatted_s(:without_second) %></div>
+    </div>
+
+    <% if current_user?(User.find(@question.user.id)) %>
+        <%= link_to 'Edit', edit_question_path(@question), class: 'btn btn-info pull-right', id: 'edit-btn' %>
+    <% end %>
+    <button class="btn btn-success pull-right" id= 'edit-btn'>回答する</button>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+    <% @question.answers.each do |answer| %>
+        <div class="media" id="box">
+            <a href=<%= user_path(get_user(answer.user_id)) %> class="pull-left">
+            <%= image_tag(get_user(answer.user_id).image_url, size: "50x50", class: "media-object pull-up") %></a>
+            <%= markdown(answer.body).html_safe %>
+            <%= div_for(answer, class: "media-body") do %>
+                <%= render 'like_count', object: answer %>
+                <%= render 'like_form', object: answer if logged_in? %> 
+            <% end %>
+            <div class='time pull-right'><%= answer.updated_at.to_formatted_s(:without_second) %></div>
+        </div>
+    <% end %>
+
+    <h2>回答フォーム</h2>
+    <%= form_for([@question, @question.answers.build]) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        <div class="form-group">
+            <p>
+                <div id="mark">markdown</div>
+                <%= f.text_area :body, class: "form-control", rows: "10" %>
+                <%= f.submit class: "btn btn-success", value: '回答' %>
+            </p>
+        </div>
+    <% end %>  
+</div>

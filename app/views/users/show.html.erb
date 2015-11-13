@@ -1,0 +1,41 @@
+<div class="row">
+<div class="col-md-4">
+	<%= image_tag(@user.image_url, size: "100x100", class: "img") %><br>
+	<div id="name"><%= @user.nickname %></div>
+	<a href="http://github.com/<%= @user.nickname %>">
+		<button class="btn btn-success">Github</button>
+	</a>
+	<div id="score"> score: <%= @user.total%> </div>
+</div>
+<div class="col-md-8">
+    <%= render 'follow_form' if logged_in? %>
+	<h3>Introduction</h3>
+	<% if current_user?(@user) %>
+		<%= form_for(@user, :url => {:action => 'update'}) do |f| %>
+			<%= f.text_area :introduction, class: "form-control col-md-8", rows: "6" %>
+			<br>
+			<%= f.submit '編集', class: "pull-right btn btn-success" %>
+		<% end %>
+	<% else %>
+	<div class="well">
+		<%= @user.introduction %>
+	</div>
+	<% end %>
+</div>
+</div>
+<div class="row">
+<div class="col-md-6">
+	<h2>My Question</h2>
+<% @questions.each do |question| %>
+	<%= link_to question.title, question %>
+	<%= link_to 'Edit', edit_question_path(question), class: 'btn btn-info pull-right' if current_user?(User.find(question.user.id)) %>
+	<hr>
+<% end %>
+</div>
+	<h2>My Answer</h2>
+<div class="col-md-6">
+<% @answers.each do |answer| %>
+	<%= link_to answer.body, get_question(answer.question_id) %>
+	<hr>
+<% end %>
+</div>

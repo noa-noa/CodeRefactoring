@@ -1,0 +1,15 @@
+class TopsController < ApplicationController
+
+	helper_method :ranking
+
+    def index
+        @top = 'top'
+        @questions = Question.all.order('updated_at').limit(10)
+    end
+
+    private
+
+    	def ranking(score)
+    		@rank ||= User.order(score).limit(5)
+    	end
+end

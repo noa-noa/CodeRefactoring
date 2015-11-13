@@ -1,0 +1,24 @@
+<header class="navbar navbar-fixed-top navbar-default">
+  	<div class="navbar-inner">
+    	<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" id='icon' href="/">Best Code</a>
+			</div>
+			<div class="collapse navbar-collapse" id="navbar-menu">
+					<%= form_tag '/questions', method: :get, class: "navbar-form", role: "search" do %>
+						<%= text_field :question, :title, class: 'form-control' %>
+						<%= submit_tag '検索', class: 'btn btn-middle btn-default' %>
+						<a button type="button" class="btn btn-success" href="/questions/new">
+						質問する
+						</button></a>
+						<% if logged_in? %>
+							<%= link_to 'Logout', logout_path, id: 'login', class: 'btn btn-primary pull-right' %>
+						<% else %> 
+							<%= link_to 'Github Login', '/auth/github', id: 'login', class: 'btn btn-primary pull-right' %>
+						<% end %>
+			</div>
+					<% end %>
+
+		</div>
+	</div>
+</header>

@@ -1,0 +1,35 @@
+<%= form_for @question, url: questions_path do |f| %>
+      	<%= render 'shared/error_messages', object: f.object %>
+      	<div class="col-md-10">
+	  		<p class="col-md-6">
+				題名	  		
+	    		<%= f.text_field :title, class: "form-control col-md-12", rows: "1" %>
+	  		</p>
+	  		<p class="col-md-6">
+	  			テーマ<br>
+			    <%= f.radio_button :theme, 'Readable' %> <%= f.label :theme_1, '可読性' %>
+			    <%= f.radio_button :theme, 'Speed' %> <%= f.label :theme_2, 'スピード' %>
+			    <%= f.radio_button :theme, 'Recylable' %> <%= f.label :theme_3, '再利用性' %>
+			    <%= f.radio_button :theme, 'other' %> <%= f.label :theme_4, 'その他' %>
+	  		</p>
+	  		<p class="col-md-12">
+				タグ <br>
+				<%= f.text_field :tag_list, class: "form-control col-md-10", rows: "1", 'data-role' => 'tagsinput' %>
+			</p>
+	  		<p class="col-md-12">
+	  			説明
+			    <%= f.text_area :description, class: "form-control col-md-10", rows: "3"%>
+	  		</p>
+	  		<div class="col-md-6">
+	  			コード<div id="mark">markdown</div>
+				<%= f.text_area :code, class: "form-control", rows:"15" %>
+			</div>
+			<div class="col-md-6">
+				テスト<div id="mark">markdown</div>
+				<%= f.text_area :test, class: "form-control", rows:"15" %>
+			</div>
+	  		<div class="col-md-3">
+	    		<%= f.submit :Submit, class: "btn btn-success" %>
+	  		</div>
+	  	</div>
+<% end %>

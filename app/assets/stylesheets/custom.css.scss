@@ -1,0 +1,161 @@
+@import "bootstrap";
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+  padding-top: 60px;
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+hr {
+  margin-bottom: 0;
+}
+
+.center {
+  text-align: center;
+}
+
+.center h1 {
+  margin-bottom: 10px;
+}
+
+.img {
+  margin: 0 auto;
+  display: block;
+}
+
+#tag {
+	font-size: 22px;
+	color: #888;
+}
+
+#good {
+	font-size: 11px;
+	color: #999;
+}
+
+#name {
+	font-size: 18px;
+  text-align: center;
+}
+
+#score {
+	font-size: 20px;
+}
+
+#mark {
+	font-size: 11px;
+	color: #999;
+}
+
+#box {
+    border-radius: 7px;
+    border: solid 1px #ccc;
+    margin-bottom: 0px;
+}
+
+#edit-btn {
+	margin: 10px;
+}
+
+.media-heading {
+	margin-top: 10px;
+}
+
+.media-object {
+	margin-top: 10px;
+}
+
+.media {
+	margin-right: 10px;
+	margin-left: 10px;
+  margin-top: 0;
+}
+
+.time {
+	bottom: 0;
+	color: #777;
+}
+
+#img {
+	margin-left: 10px;
+	margin-right: 5px;
+}
+
+#icon {
+	color: #0000DD;
+}
+
+.pull-up {
+	margin-top: 0;
+}
+
+.btn-small {
+	font-size: 10px;
+}
+
+.media-object {
+	border-radius: 3px;
+}
+
+.tags {
+	font-size: 14px;
+}
+
+.flat {
+  display: inline;
+  margin: 0 auto;
+}
+
+aside {
+  section {
+    padding: 10px 0;
+    border-top: 1px solid #eaeaea;
+    &:first-child {
+      border: 0;
+      padding-top: 0;
+    }
+    span {
+      display: block;
+      margin-bottom: 3px;
+      line-height: 1;
+    }
+    h1 {
+      font-size: 1.4em;
+      text-align: left;
+      letter-spacing: -1px;
+      margin-bottom: 3px;
+      margin-top: 0px;
+    }
+  }
+}
+
+.stats {
+  overflow: auto;
+  a {
+    float: left;
+    padding: 0 10px;
+    border-left: 1px solid #eaeaea;
+    color: gray;
+    &:first-child {
+      padding-left: 0;
+      border: 0;
+    }
+    &:hover {
+      text-decoration: none;
+      color: blue;
+    }
+  }
+  strong {
+    display: block;
+  }
+}

@@ -1,0 +1,89 @@
+  <div class="row">
+    <div class="col-md-8">
+      <h3>最近の更新</h3>
+      <ul class="media-list" id='box'>
+        <% @questions.each do |question| %>
+        <li class="media">
+          <div class="pull-left">
+            <a href=<%= user_path(question.user_id) %>>
+            <%= image_tag(get_user(question.user_id).image_url, size: '68x68', class: 'media-object') %>
+            </a>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">
+              <%=link_to question.title, question %>
+              <% question.tag_list.each do |tag| %>
+                <div id="tag" class="pull-right" style="font-size: 13px; display: block;">
+                  #<%= tag %> 
+                </div>
+              <% end %>
+            </h4>
+            <%= simple_format(question.description) %>
+          </div>
+        </li>
+        <div class='time pull-right'>
+          <%= question.updated_at.to_formatted_s(:without_second) %>
+        </div>
+        <hr>
+        <% end %>
+      </ul>
+      <%= will_paginate @questions, renderer: BootstrapPagination::Rails %>
+    </div>
+    <div class="col-md-4">
+      <div class="popular_tags panel panel-default">
+        <div class="panel-heading">
+          <h1 class="panel-title">
+            人気のタグ
+          </h1>
+
+        </div>
+        <div class="list-group">
+          <% @tags.each do |tag| %>
+            <a class="list-group-item" href="">#<%= tag %></a>
+          <% end %>
+        </div>
+      </div>
+      <div class="user_ranking panel panel-default">
+        <div class="panel-heading">
+          <h1 class="panel-title">
+            ユーザーランキング
+          </h1>
+        </div>
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#tab1" data-toggle="tab" aria-expanded="true">総合</a></li>
+          <li><a href="#tab2" data-toggle="tab" aria-expanded="false">可読性</a></li>
+          <li><a href="#tab3" data-toggle="tab" aria-expanded="false">スピード</a></li>
+          <li><a href="#tab4" data-toggle="tab" aria-expanded="false">再利用性</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane fade in active" id="tab1">
+            <div class="list-group">
+              <% ranking('total desc').each_with_index do |user, count| %>
+              <a class="list-group-item" href='/users/<%= user.id %>'><%= count+1 %>位<%= image_tag(user.image_url, size: '30x30', id: "img") %><%= user.nickname %></a>
+              <% end %>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="tab2">
+            <div class="list-group">
+              <% ranking('readable_score desc').each_with_index do |user, count| %>
+              <a class="list-group-item" href='/users/<%= user.id %>'><%= count+1 %>位<%= image_tag(user.image_url, size: '30x30', id: "img") %><%= user.nickname %></a>
+              <% end %>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="tab3">
+            <div class="list-group">
+              <% ranking('speed_score desc').each_with_index do |user, count| %>
+              <a class="list-group-item" href='/users/<%= user.id %>'><%= count+1 %>位<%= image_tag(user.image_url, size: '30x30', id: "img") %><%= user.nickname %></a>
+              <% end %>
+            </div>                    </div>
+          <div class="tab-pane fade" id="tab4">
+            <div class="list-group">
+              <% ranking('recyclable_score desc').each_with_index do |user, count| %>
+              <a class="list-group-item" href='/users/<%= user.id %>'><%= count+1 %>位<%= image_tag(user.image_url, size: '30x30', id: "img") %><%= user.nickname %></a>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

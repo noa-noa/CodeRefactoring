@@ -1,0 +1,17 @@
+<div id='wrap'>
+  <div id='sideWrap'>
+    <%= form_tag( { action: :create }, { remote: true } ) do %>
+　　<fieldset>
+  　　<legend>Bweet</legend>
+  　　<div><%= text_area_tag :description%></div>
+  　　<div><%= submit_tag :Bweet %></div>
+　　</fieldset>
+　　<% end %>
+  </div><!-- /sideWrap -->
+  <div id='mainWrap'>
+    <h1>BweetsList</h1>
+    <div id='bweets'>
+      <%= render partial: "bweet", collections: @bweets %>
+    </div>
+  </div><!-- /mainWrap -->
+</div><!-- /wrap -->

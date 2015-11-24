@@ -1,0 +1,6 @@
+<% @bweets.each do |bweet| %>
+  <fieldset>
+    <legend><%= bweet.created_at %></legend>
+    <p><%= bweet.description %></p>
+  </fieldset>
+<% end %>

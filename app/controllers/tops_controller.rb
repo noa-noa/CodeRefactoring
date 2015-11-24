@@ -4,7 +4,8 @@ class TopsController < ApplicationController
 
     def index
         @top = 'top'
-        @questions = Question.all.order('updated_at').limit(10)
+        @questions = Question.all.order('updated_at').paginate(page: params[:page])
+        @tags = ActsAsTaggableOn::Tag.most_used(5)
     end
 
     private

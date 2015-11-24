@@ -1,41 +1,93 @@
 <div class="row">
-<div class="col-md-4">
-	<%= image_tag(@user.image_url, size: "100x100", class: "img") %><br>
-	<div id="name"><%= @user.nickname %></div>
-	<a href="http://github.com/<%= @user.nickname %>">
-		<button class="btn btn-success">Github</button>
-	</a>
-	<div id="score"> score: <%= @user.total%> </div>
+<div class="col-md-2" id="box">
+  <%= image_tag(@user.image_url, size: "100x100", class: "img") %>
+  <h3><%= @user.nickname %></h4>
+  <a href="http://github.com/<%= @user.nickname %>">
+  <div class="stats">
+    <a href="<%= following_user_path(@user) %>">
+      <strong id="following" class="stat">
+        <%= @user.followed_users.count %>
+      </strong>
+      following
+    </a>
+    <a href="<%= followers_user_path(@user) %>">
+      <strong id="followers" class="stat">
+        <%= @user.followers.count %>
+      </strong>
+      followers
+    </a>
+  </div>
+    <button class="btn btn-success">Github</button>
+  </a>
+  <div id="score"> score: <%= @user.total %> </div>
 </div>
-<div class="col-md-8">
-    <%= render 'follow_form' if logged_in? %>
-	<h3>Introduction</h3>
-	<% if current_user?(@user) %>
-		<%= form_for(@user, :url => {:action => 'update'}) do |f| %>
-			<%= f.text_area :introduction, class: "form-control col-md-8", rows: "6" %>
-			<br>
-			<%= f.submit '編集', class: "pull-right btn btn-success" %>
-		<% end %>
-	<% else %>
-	<div class="well">
-		<%= @user.introduction %>
-	</div>
-	<% end %>
+<div class="col-md-2" style="text-align: center;">
+  <%= render 'follow_form' if logged_in? %>
+</div>
+<div class="col-md-8 pull-right">
+  <h3>プロフィール</h3>
+  <% if current_user?(@user) %>
+    <%= form_for(@user, :url => {:action => 'update'}) do |f| %>
+      <%= f.text_area :introduction, class: "form-control col-md-8", rows: "6" %>
+      <br>
+      <%= f.submit '更新', class: "pull-right btn btn-warning" %>
+    <% end %>
+  <% else %>
+  <div class="well">
+    <%= simple_format @user.introduction %>
+  </div>
+  <% end %>
 </div>
 </div>
 <div class="row">
 <div class="col-md-6">
-	<h2>My Question</h2>
-<% @questions.each do |question| %>
-	<%= link_to question.title, question %>
-	<%= link_to 'Edit', edit_question_path(question), class: 'btn btn-info pull-right' if current_user?(User.find(question.user.id)) %>
-	<hr>
-<% end %>
+  <h2>質問</h2>
+  <ul class="media-list" id="box">
+    <% @questions.each do |question| %>
+      <li class="media">
+        <div class="media-body">
+          <h4 class="media-heading">
+            <%= link_to question.title, question %>
+            <% question.tag_list.each do |tag| %>
+              <div id="tag" class="pull-right" style="font-size: 13px; display: block;">
+                #<%= tag %>
+              </div>
+            <% end %>
+          </h4>
+          <%= simple_format(question.description) %>
+          <%= link_to 'Edit', edit_question_path(question), class: 'btn btn-info pull-right' if current_user?(User.find(question.user.id)) %> 
+        </div>
+      </li>
+      <div class='time pull-right'>
+        <%= question.updated_at.to_formatted_s(:without_second) %>
+      </div>
+      <hr>
+    <% end %>
+  </ul>
 </div>
-	<h2>My Answer</h2>
+<h2>回答</h2>
 <div class="col-md-6">
-<% @answers.each do |answer| %>
-	<%= link_to answer.body, get_question(answer.question_id) %>
-	<hr>
-<% end %>
+  <ul class="media-list" id="box">
+    <% @answers.each do |answer| %>
+      <li class="media">
+        <div class="media-heading">
+          <h4 style="display: inline;">
+            <%= link_to get_question(answer.question_id).title, get_question(answer.question_id) %>
+          </h4>
+          <div class="pull-right">
+            <div style="color: #777; display: inline;">question by</div>
+            <a href=<%= user_path(get_question(answer.question_id).user_id) %>>
+              <%= image_tag(get_user(get_question(answer.question_id).user_id).image_url, size: '25x25', class: 'media-object flat') %>
+            </a>
+          </div>
+        </div>
+        <div class="media-body">
+          <%= markdown(answer.body).html_safe %>
+        </div>
+      </li>
+      <div class='time pull-right'>
+        <%= answer.updated_at.to_formatted_s(:without_second) %>
+      </div>
+      <hr>
+    <% end %>
 </div>

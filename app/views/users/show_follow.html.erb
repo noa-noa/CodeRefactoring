@@ -1,0 +1,54 @@
+<div class="row">
+  <aside class="col-md-3">
+    <section>
+      <%= image_tag(@user.image_url, size: "100x100") %>
+      <h1><%= @user.nickname %></h1>
+      <span><%= link_to "view my profile", @user %></span>
+      <div class="stats">
+        <a href="<%= following_user_path(@user) %>">
+          <strong id="following" class="stat">
+            <%= @user.followed_users.count %>
+          </strong>
+          following
+        </a>
+        <a href="<%= followers_user_path(@user) %>">
+          <strong id="followers" class="stat">
+            <%= @user.followers.count %>
+          </strong>
+          followers
+        </a>
+      </div>
+    </section>
+    <section>
+      <% if @users.any? %>
+        <div class="user_avatars">
+          <% @users.each do |user| %>
+            <%= image_tag(user.image_url, size: "40x40") %>
+          <% end %>
+        </div>
+      <% end %>
+    </section>
+  </aside>
+  <div class="col-md-8">
+  <%= will_paginate renderer: BootstrapPagination::Rails %>
+    <% if @users.any? %>
+      <ul class="media-list" id="box">
+        <% @users.each do |user| %>
+          <li class="media">
+            <div class="pull-left">
+              <a href="/users/<%= user.id %>">
+                <%= image_tag(user.image_url, size: '68x68', class: 'media-object') %>
+              </a>
+            </div>
+            <div class="media-body">
+              <h4 class="media-heading"><%= user.nickname %></h4>
+              <%= simple_format(user.introduction) %>
+            </div>
+          </li>
+          <hr>
+        <% end %>        
+      </ul>
+    <% end %>
+    <%= will_paginate renderer: BootstrapPagination::Rails %>
+  </div>
+</div>

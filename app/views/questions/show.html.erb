@@ -9,13 +9,17 @@
                 <%= div_for(@question, class: "label label-primary") do %>
                     <%= @question.theme %>
                 <% end %>
-                <div class="pull-right" id="tag"> #<%= @question.tag %> </div>
+                <div class="pull-right" id="tag"> 
+                    <% @question.tag_list.each do |tag| %>
+                        #<%= tag %>
+                    <% end %> 
+                </div>
             </h3>
             <%= markdown(@question.description).html_safe %><br>
-            <div class="col-md-6 well well-sm">
+            <div class="col-md-6">
                 <%= markdown(@question.code).html_safe %>
             </div>
-            <div class="col-md-6 well well-sm" >
+            <div class="col-md-6" >
                 <% unless @question.test == nil %>
                     <%= markdown(@question.test).html_safe %>
                 <% end %>
@@ -36,8 +40,8 @@
         <div class="media" id="box">
             <a href=<%= user_path(get_user(answer.user_id)) %> class="pull-left">
             <%= image_tag(get_user(answer.user_id).image_url, size: "50x50", class: "media-object pull-up") %></a>
-            <%= markdown(answer.body).html_safe %>
             <%= div_for(answer, class: "media-body") do %>
+                <%= markdown(answer.body).html_safe %>
                 <%= render 'like_count', object: answer %>
                 <%= render 'like_form', object: answer if logged_in? %> 
             <% end %>

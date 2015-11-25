@@ -17,10 +17,12 @@
             </h3>
             <%= markdown(@question.description).html_safe %><br>
             <div class="col-md-6">
+                <h4>コード</h4>
                 <%= markdown(@question.code).html_safe %>
             </div>
             <div class="col-md-6" >
                 <% unless @question.test == nil %>
+                    <h4>テスト</h4>
                     <%= markdown(@question.test).html_safe %>
                 <% end %>
             </div>

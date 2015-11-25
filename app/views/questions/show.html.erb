@@ -40,8 +40,8 @@
         <div class="media" id="box">
             <a href=<%= user_path(get_user(answer.user_id)) %> class="pull-left">
             <%= image_tag(get_user(answer.user_id).image_url, size: "50x50", class: "media-object pull-up") %></a>
+            <%= markdown(answer.body).html_safe %>
             <%= div_for(answer, class: "media-body") do %>
-                <%= markdown(answer.body).html_safe %>
                 <%= render 'like_count', object: answer %>
                 <%= render 'like_form', object: answer if logged_in? %> 
             <% end %>
